@@ -22,7 +22,7 @@ services:
       - /opt/mosquitto/config:/mosquitto/config
     restart: unless-stopped
 
-  homeassistant:
+  hass:
     container_name: hass
     image: homeassistant/home-assistant:stable
     volumes:
