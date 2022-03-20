@@ -30,7 +30,7 @@ services:
       - /opt/hass_media:/media
     depends_on:
       - mqtt
-      - influxdb
+#      - influxdb
     environment:
       - TZ=Europe/Berlin
     restart: unless-stopped
