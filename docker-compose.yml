@@ -1,0 +1,94 @@
+version: '3'
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  mosquitto-data:
+  node-red-data:
+#  influxdb-data:
+#  grafana-data:
+#  chronograf-data:
+
+services:
+  mqtt:
+    container_name: mqtt
+    image: "eclipse-mosquitto"
+    ports:
+      - "1883:1883"
+    volumes:
+      - mosquitto-data:/mosquitto/data
+      - /opt/mosquitto/log:/mosquitto/log
+      - /opt/mosquitto/config:/mosquitto/config
+    restart: unless-stopped
+
+  homeassistant:
+    container_name: hass
+    image: homeassistant/home-assistant:stable
+    volumes:
+      - /opt/hass:/config
+      - /opt/hass_media:/media
+    depends_on:
+      - mqtt
+      - influxdb
+    environment:
+      - TZ=Europe/Berlin
+    restart: unless-stopped
+    network_mode: "host"
+
+  node-red:
+    container_name: node-red
+    build:
+      context: ./node-red
+    ports:
+      - "1880:1880"
+    extra_hosts:
+      - "docker-host:host-gateway"
+    volumes:
+      - node-red-data:/data
+    depends_on:
+      - hass
+    environment:
+      - TZ=Europe/Berlin
+    user: node-red
+    restart: unless-stopped
+
+#  influxdb:
+#    container_name: influxdb
+#    image: influxdb:1.8
+#    ports:
+#      - "127.0.0.1:8086:8086"
+#    volumes:
+#      - influxdb-data:/var/lib/influxdb
+#    environment:
+#      - TZ=Europe/Berlin
+#      - INFLUXDB_ADMIN_USER=admin
+#      - INFLUXDB_ADMIN_PASSWORD=admin
+#    restart: unless-stopped
+#
+#  grafana:
+#    container_name: grafana
+#    image: grafana/grafana:latest
+#    ports:
+#      - "3000:3000"
+#    volumes:
+#      - grafana-data:/var/lib/grafana
+#    depends_on:
+#      - influxdb
+#    environment:
+#      - TZ=Europe/Berlin
+#    restart: unless-stopped
+#
+#  chronograf:
+#    container_name: chronograf
+#    image: chronograf:latest
+#    volumes:
+#      - chronograf-data:/var/lib/chronograf
+#    depends_on:
+#      - influxdb
+#    environment:
+#      - TZ=Europe/Berlin
+#      - INFLUXDB_URL=http://influxdb:8086
+#      - INFLUXDB_USERNAME=admin
+#      - INFLUXDB_PASSWORD=admin
+#    restart: unless-stopped
