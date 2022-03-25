@@ -58,8 +58,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     ports:
       - 8080:8080
-#    devices:
-#      - /dev/ttyUSB0:/dev/ttyUSB0
+    devices:
+      - /dev/zigbee:/dev/zigbee
     restart: unless-stopped
 
 #  influxdb:
