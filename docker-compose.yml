@@ -18,21 +18,19 @@ services:
       - "1883:1883"
     volumes:
       - mosquitto-data:/mosquitto/data
-      - /opt/mosquitto/log:/mosquitto/log
-      - /opt/mosquitto/config:/mosquitto/config
+      - ./mqtt:/mosquitto/config
+      - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
 
   hass:
     container_name: hass
     image: homeassistant/home-assistant:stable
     volumes:
-      - /opt/hass:/config
-      - /opt/hass_media:/media
+      - ./hass:/config
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - mqtt
 #      - influxdb
-    environment:
-      - TZ=Europe/Berlin
     restart: unless-stopped
     network_mode: "host"
 
@@ -46,11 +44,22 @@ services:
       - "docker-host:host-gateway"
     volumes:
       - node-red-data:/data
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
       - hass
-    environment:
-      - TZ=Europe/Berlin
     user: node-red
+    restart: unless-stopped
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - ./zigbee2mqtt:/app/data
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8080:8080
+#    devices:
+#      - /dev/ttyUSB0:/dev/ttyUSB0
     restart: unless-stopped
 
 #  influxdb:
