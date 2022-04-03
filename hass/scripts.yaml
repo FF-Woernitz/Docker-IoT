@@ -1,0 +1,28 @@
+alle_tore_auf:
+  alias: Alle Tore Auf
+  sequence:
+  - service: cover.open_cover
+    data: {}
+    target:
+      entity_id:
+      - cover.gate1
+      - cover.gate2
+      - cover.gate3
+      - cover.gate4
+      - cover.gate5
+  mode: single
+  icon: mdi:garage-open
+alle_tore_zu:
+  alias: Alle Tore Zu
+  sequence:
+  - service: cover.close_cover
+    data: {}
+    target:
+      entity_id:
+      - cover.gate1
+      - cover.gate2
+      - cover.gate3
+      - cover.gate4
+      - cover.gate5
+  mode: single
+  icon: mdi:garage

@@ -1,0 +1,109 @@
+- platform: mqtt
+  name: "Gate 1"
+  object_id: "gate1"
+  unique_id: "sps_ffw1.gate1"
+  device_class: "garage"
+  command_topic: "sps_ffw1/gate1/cmd"
+  state_topic: "sps_ffw1/gate1/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_open: "UP"
+  payload_close: "DOWN"
+  payload_stop: "STOP"
+  state_open: "open"
+  state_opening: "opening"
+  state_closed: "closed"
+  state_closing: "closing"
+  payload_available: "online"
+  payload_not_available: "offline"
+  optimistic: false
+
+- platform: mqtt
+  name: "Gate 2"
+  object_id: "gate2"
+  unique_id: "sps_ffw1.gate2"
+  device_class: "garage"
+  command_topic: "sps_ffw1/gate2/cmd"
+  state_topic: "sps_ffw1/gate2/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_open: "UP"
+  payload_close: "DOWN"
+  payload_stop: "STOP"
+  state_open: "open"
+  state_opening: "opening"
+  state_closed: "closed"
+  state_closing: "closing"
+  payload_available: "online"
+  payload_not_available: "offline"
+  optimistic: false
+
+- platform: mqtt
+  name: "Gate 3"
+  object_id: "gate3"
+  unique_id: "sps_ffw1.gate3"
+  device_class: "garage"
+  command_topic: "sps_ffw1/gate3/cmd"
+  state_topic: "sps_ffw1/gate3/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_open: "UP"
+  payload_close: "DOWN"
+  payload_stop: "STOP"
+  state_open: "open"
+  state_opening: "opening"
+  state_closed: "closed"
+  state_closing: "closing"
+  payload_available: "online"
+  payload_not_available: "offline"
+  optimistic: false
+
+- platform: mqtt
+  name: "Gate 4"
+  object_id: "gate4"
+  unique_id: "sps_ffw1.gate4"
+  device_class: "garage"
+  command_topic: "sps_ffw1/gate4/cmd"
+  state_topic: "sps_ffw1/gate4/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_open: "UP"
+  payload_close: "DOWN"
+  payload_stop: "STOP"
+  state_open: "open"
+  state_opening: "opening"
+  state_closed: "closed"
+  state_closing: "closing"
+  payload_available: "online"
+  payload_not_available: "offline"
+  optimistic: false
+
+- platform: mqtt
+  name: "Gate 5"
+  object_id: "gate5"
+  unique_id: "sps_ffw1.gate5"
+  device_class: "garage"
+  command_topic: "sps_ffw1/gate5/cmd"
+  state_topic: "sps_ffw1/gate5/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_open: "UP"
+  payload_close: "DOWN"
+  payload_stop: "STOP"
+  state_open: "open"
+  state_opening: "opening"
+  state_closed: "closed"
+  state_closing: "closing"
+  payload_available: "online"
+  payload_not_available: "offline"
+  optimistic: false

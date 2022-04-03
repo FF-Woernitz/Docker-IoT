@@ -1,0 +1,43 @@
+homeassistant:
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - 10.2.1.30/32
+      trusted_users:
+        10.2.1.30/32: ded5b5cae8b24592aa36bad472ff5b92
+  name: FFW
+  # Location required to calculate the time the sun rises and sets
+  latitude: 49.3
+  longitude: 10.2
+  elevation: 460
+    # C for Celcius, F for Fahrenheit
+  temperature_unit: C
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Berlin
+  unit_system: metric
+  customize_glob:
+    "cover.*":
+      assumed_state: true
+
+default_config:
+
+mqtt:
+  broker: mqtt
+  port: 1883
+  discovery: true
+  client_id: home-assistant-1
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  birth_message:
+    topic: 'homeassistant/status'
+    payload: 'online'
+  will_message:
+    topic: 'homeassistant/status'
+    payload: 'offline'
+
+cover: !include gates.yaml
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
