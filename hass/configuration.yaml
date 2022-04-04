@@ -20,7 +20,23 @@ homeassistant:
     "cover.*":
       assumed_state: true
 
-default_config:
+counter:
+frontend:
+history:
+input_boolean:
+input_button:
+input_datetime:
+input_number:
+input_select:
+input_text:
+logbook:
+my:
+network:
+ssdp:
+sun:
+system_health:
+timer:
+webhook:
 
 mqtt:
   broker: mqtt
