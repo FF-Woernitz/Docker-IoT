@@ -1,0 +1,16 @@
+- platform: mqtt
+  name: "Außenlicht"
+  object_id: "light_outside"
+  unique_id: "sps_ffw1.light_outside"  
+  command_topic: "sps_ffw1/light_outside/cmd"
+  state_topic: "sps_ffw1/light_outside/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "on"
+  state_off: "off"
+  payload_available: "online"
+  payload_not_available: "offline"
