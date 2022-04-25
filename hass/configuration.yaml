@@ -53,7 +53,7 @@ mqtt:
     payload: 'offline'
 
 cover: !include gates.yaml
-switch: !include switchs.yaml
+switch: !include switches.yaml
 
 group: !include groups.yaml
 automation: !include automations.yaml
