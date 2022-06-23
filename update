@@ -27,5 +27,5 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo -e "\n\n###############################################\nUp:" >> $backup_file_name
-    docker-compose up -d | tee -a $backup_file_name
+    docker-compose up -d 2>&1 | tee -a $backup_file_name
 fi
