@@ -20,6 +20,7 @@ homeassistant:
     "cover.*":
       assumed_state: true
 
+backup:
 counter:
 frontend:
 history:
