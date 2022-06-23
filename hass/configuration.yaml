@@ -66,4 +66,17 @@ logger:
   filters:
     homeassistant.components.websocket_api.http.connection:
       - "Error handling message: Unknown error" # Bug in browser_mod
+
+panel_iframe:
+  panel_nodered:
+    title: NodeRED
+    icon: mdi:nodejs
+    url: http://10.2.1.11:1880/
+    require_admin: true
+  panel_zigbee2mqtt:
+    title: Zigbee2MQTT
+    icon: mdi:zigbee
+    url: http://10.2.1.11:8080/
+    require_admin: true
+
 browser_mod:
