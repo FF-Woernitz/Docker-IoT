@@ -41,9 +41,8 @@ webhook:
 
 mqtt:
   client_id: home-assistant-1
-
-cover: !include gates.yaml
-switch: !include switches.yaml
+  cover: !include gates.yaml
+  switch: !include switches.yaml
 
 group: !include groups.yaml
 automation: !include automations.yaml

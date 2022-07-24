@@ -1,5 +1,4 @@
-- platform: mqtt
-  name: "Außenlicht"
+- name: "Außenlicht"
   object_id: "light_outside"
   unique_id: "sps_ffw1.light_outside"  
   command_topic: "sps_ffw1/light_outside/cmd"
