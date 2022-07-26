@@ -13,4 +13,8 @@ mqtt:
   include_device_information: true
 serial:
   port: /dev/zigbee
-availability: true
+availability:
+  active:
+    timeout: 10
+  passive:
+    timeout: 2940
