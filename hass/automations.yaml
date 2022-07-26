@@ -1,0 +1,13 @@
+- id: '1656002380350'
+  alias: Create Backup
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: shutdown
+  - platform: time
+    at: 05:00:00
+  condition: []
+  action:
+  - service: backup.create
+    data: {}
+  mode: single
