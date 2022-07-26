@@ -19,7 +19,7 @@ services:
     volumes:
       - mosquitto-data:/mosquitto/data
       - ./mqtt:/mosquitto/config
-      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     restart: unless-stopped
 
   hass:
@@ -28,7 +28,7 @@ services:
       context: build-hass
     volumes:
       - ./hass:/config
-      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     depends_on:
       - mqtt
 #      - influxdb
@@ -45,7 +45,7 @@ services:
       - "docker-host:host-gateway"
     volumes:
       - node-red-data:/data
-      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     depends_on:
       - hass
     user: node-red
@@ -56,7 +56,7 @@ services:
     image: koenkk/zigbee2mqtt
     volumes:
       - ./zigbee2mqtt:/app/data
-      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - 8080:8080
     devices:
@@ -67,7 +67,7 @@ services:
     container_name: dali2mqtt
     image: ghcr.io/tobsa13/dali2mqtt:scenes
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     devices:
       - /dev/dali:/dev/dali
     environment:
