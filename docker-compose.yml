@@ -65,13 +65,14 @@ services:
 
   dali2mqtt:
     container_name: dali2mqtt
+    privileged: true
     image: ghcr.io/tobsa13/dali2mqtt:scenes
     volumes:
       - /etc/timezone:/etc/timezone:ro
     devices:
       - /dev/dali:/dev/dali
     environment:
-      - D2M_MQTT_SERVER=127.0.0.1
+      - D2M_MQTT_SERVER=mqtt
       - D2M_MQTT_PORT=1883
       - D2M_MQTT_USERNAME=d2m
       - D2M_LOG_LEVEL=debug
