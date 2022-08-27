@@ -70,7 +70,7 @@ services:
   dali2mqtt:
     container_name: dali2mqtt
     privileged: true
-    image: ghcr.io/tobsa13/dali2mqtt:scenes
+    image: ghcr.io/tobsa13/dali2mqtt:master
     devices:
       - /dev/dali:/dev/dali
     environment:
