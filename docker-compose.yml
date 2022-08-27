@@ -19,7 +19,8 @@ services:
     volumes:
       - mosquitto-data:/mosquitto/data
       - ./mqtt:/mosquitto/config
-      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Europe/Berlin
     restart: unless-stopped
 
   hass:
@@ -28,7 +29,8 @@ services:
       context: build-hass
     volumes:
       - ./hass:/config
-      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Europe/Berlin
     depends_on:
       - mqtt
 #      - influxdb
@@ -45,7 +47,8 @@ services:
       - "docker-host:host-gateway"
     volumes:
       - node-red-data:/data
-      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - TZ=Europe/Berlin
     depends_on:
       - hass
     user: node-red
@@ -56,19 +59,18 @@ services:
     image: koenkk/zigbee2mqtt
     volumes:
       - ./zigbee2mqtt:/app/data
-      - /etc/timezone:/etc/timezone:ro
     ports:
       - 8080:8080
     devices:
       - /dev/zigbee:/dev/zigbee
+    environment:
+      - TZ=Europe/Berlin
     restart: unless-stopped
 
   dali2mqtt:
     container_name: dali2mqtt
     privileged: true
     image: ghcr.io/tobsa13/dali2mqtt:scenes
-    volumes:
-      - /etc/timezone:/etc/timezone:ro
     devices:
       - /dev/dali:/dev/dali
     environment:
@@ -79,6 +81,7 @@ services:
       - D2M_LOG_COLOR=true
       - D2M_DALI_LAMPS=24
       - D2M_GROUP_MODE=mean
+      - TZ=Europe/Berlin
     env_file: dali2mqtt.env
     restart: unless-stopped
 
