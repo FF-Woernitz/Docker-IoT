@@ -23,6 +23,7 @@ homeassistant:
 backup:
 counter:
 frontend:
+homeassistant_alerts:
 history:
 input_boolean:
 input_button:
