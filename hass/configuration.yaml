@@ -41,7 +41,6 @@ timer:
 webhook:
 
 mqtt:
-  client_id: home-assistant-1
   cover: !include gates.yaml
   switch: !include switches.yaml
 
