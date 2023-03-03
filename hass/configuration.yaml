@@ -10,6 +10,7 @@ homeassistant:
   # Location required to calculate the time the sun rises and sets
   latitude: 49.3
   longitude: 10.2
+  country: DE
   elevation: 460
     # C for Celcius, F for Fahrenheit
   temperature_unit: C
