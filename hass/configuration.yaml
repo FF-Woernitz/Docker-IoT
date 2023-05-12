@@ -41,6 +41,16 @@ system_health:
 timer:
 webhook:
 
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_utc'
+      - 'date_time_iso'
+      - 'time_date'
+
 mqtt:
   cover: !include gates.yaml
   switch: !include switches.yaml
