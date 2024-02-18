@@ -85,6 +85,24 @@ services:
     env_file: dali2mqtt.env
     restart: unless-stopped
 
+  tts:
+    container_name: tts
+    privileged: true
+    image: ghcr.io/ff-woernitz/tts:master
+    devices:
+      - /dev/snd:/dev/snd
+    environment:
+      - TTS_MQTT_SERVER=vpn.ffw-it.de
+      - TTS_MQTT_PORT=1884
+      - TTS_MQTT_USERNAME=ffw-woe-tts
+      - TTS_MQTT_BASE_TOPIC=ffw/woe/tts
+      - TTS_LOG_LEVEL=debug
+      - TTS_LOG_COLOR=true
+      - TTS_AUDIO_DEVICE=Device
+      - TZ=Europe/Berlin
+    env_file: tts.env
+    restart: unless-stopped
+
 #  influxdb:
 #    container_name: influxdb
 #    image: influxdb:1.8

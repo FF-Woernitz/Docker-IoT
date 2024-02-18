@@ -2,3 +2,4 @@
 *.iml
 backups/*.backup
 dali2mqtt.env
+tts.env
