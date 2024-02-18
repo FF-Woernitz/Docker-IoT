@@ -7,3 +7,8 @@
 
 !gates.yaml
 !switches.yaml
+!sensors.yaml
+
+!climates.yaml
+
+!www/images/

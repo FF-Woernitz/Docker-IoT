@@ -13,3 +13,35 @@
   state_off: "off"
   payload_available: "online"
   payload_not_available: "offline"
+
+- name: "Heizung Vorne"
+  object_id: "output_heating_front"
+  unique_id: "sps_ffw1.output_heating_front"
+  command_topic: "sps_ffw1/output_heating_front/cmd"
+  state_topic: "sps_ffw1/output_heating_front/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "on"
+  state_off: "off"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Heizung Hinten"
+  object_id: "output_heating_back"
+  unique_id: "sps_ffw1.output_heating_back"
+  command_topic: "sps_ffw1/output_heating_back/cmd"
+  state_topic: "sps_ffw1/output_heating_back/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "on"
+  state_off: "off"
+  payload_available: "online"
+  payload_not_available: "offline"

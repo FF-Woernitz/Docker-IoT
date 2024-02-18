@@ -1,0 +1,87 @@
+- name: "Temperatur Fahrzeughalle Vorne"
+  object_id: "temp_garage_front"
+  unique_id: "sps_ffw1.temp_garage_front"
+  state_topic: "sps_ffw1/sensor10/temp"
+  suggested_display_precision: 1
+  unit_of_measurement: "°C"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Feuchtigkeit Fahrzeughalle Vorne"
+  object_id: "humd_garage_front"
+  unique_id: "sps_ffw1.humd_garage_front"
+  state_topic: "sps_ffw1/sensor10/humd"
+  suggested_display_precision: 1
+  unit_of_measurement: "%"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Temperatur Fahrzeughalle Mitte"
+  object_id: "temp_garage_mid"
+  unique_id: "sps_ffw1.temp_garage_mid"
+  state_topic: "sps_ffw1/sensor11/temp"
+  suggested_display_precision: 1
+  unit_of_measurement: "°C"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Feuchtigkeit Fahrzeughalle Mitte"
+  object_id: "humd_garage_mid"
+  unique_id: "sps_ffw1.humd_garage_mid"
+  state_topic: "sps_ffw1/sensor11/humd"
+  suggested_display_precision: 1
+  unit_of_measurement: "%"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Temperatur Fahrzeughalle Hinten"
+  object_id: "temp_garage_back"
+  unique_id: "sps_ffw1.temp_garage_back"
+  state_topic: "sps_ffw1/sensor12/temp"
+  suggested_display_precision: 1
+  unit_of_measurement: "°C"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Feuchtigkeit Fahrzeughalle Hinten"
+  object_id: "humd_garage_back"
+  unique_id: "sps_ffw1.humd_garage_back"
+  state_topic: "sps_ffw1/sensor12/humd"
+  suggested_display_precision: 1
+  unit_of_measurement: "%"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Temperatur IT Verteiler"
+  object_id: "temp_distribution_it"
+  unique_id: "sps_ffw1.temp_distribution_it"
+  state_topic: "sps_ffw1/sensor13/temp"
+  suggested_display_precision: 1
+  unit_of_measurement: "°C"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Feuchtigkeit IT Verteiler"
+  object_id: "humd_distribution_it"
+  unique_id: "sps_ffw1.humd_distribution_it"
+  state_topic: "sps_ffw1/sensor13/humd"
+  suggested_display_precision: 1
+  unit_of_measurement: "%"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"

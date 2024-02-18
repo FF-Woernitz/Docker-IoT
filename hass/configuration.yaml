@@ -54,11 +54,14 @@ sensor:
 mqtt:
   cover: !include gates.yaml
   switch: !include switches.yaml
+  sensor: !include sensors.yaml
 
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+climate: !include climates.yaml
 
 logger:
   default: info
