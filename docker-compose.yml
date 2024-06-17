@@ -6,6 +6,7 @@ networks:
 volumes:
   mosquitto-data:
   node-red-data:
+  esphome-data:
 #  influxdb-data:
 #  grafana-data:
 #  chronograf-data:
@@ -15,7 +16,7 @@ services:
     container_name: mqtt
     image: "eclipse-mosquitto"
     ports:
-      - "1883:1883"
+      - "1883:1883/tcp"
     volumes:
       - mosquitto-data:/mosquitto/data
       - ./mqtt:/mosquitto/config
@@ -41,7 +42,7 @@ services:
     container_name: node-red
     image: nodered/node-red
     ports:
-      - "1880:1880"
+      - "1880:1880/tcp"
     extra_hosts:
       - "docker-host:host-gateway"
     volumes:
@@ -60,7 +61,7 @@ services:
     volumes:
       - ./zigbee2mqtt:/app/data
     ports:
-      - 8080:8080
+      - "8080:8080/tcp"
     devices:
       - /dev/zigbee:/dev/zigbee
     environment:
@@ -83,6 +84,25 @@ services:
       - D2M_GROUP_MODE=mean
       - TZ=Europe/Berlin
     env_file: dali2mqtt.env
+    restart: unless-stopped
+
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome
+    volumes:
+      - esphome-data:/config
+    ports:
+      - "6052:6052/tcp"
+    environment:
+      - ESPHOME_DASHBOARD_USE_PING=true
+      - TZ=Europe/Berlin
+    restart: unless-stopped
+
+  vlmcsd:
+    container_name: vlmcsd
+    image: ghcr.io/tobsa13/vlmcsd:master
+    ports:
+      - "1688:1688/tcp"
     restart: unless-stopped
 
 #  influxdb:
