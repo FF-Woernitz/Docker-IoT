@@ -1,4 +1,3 @@
-version: '3'
 networks:
   default:
     driver: bridge
@@ -62,8 +61,6 @@ services:
       - ./zigbee2mqtt:/app/data
     ports:
       - "8080:8080/tcp"
-    devices:
-      - /dev/zigbee:/dev/zigbee
     environment:
       - TZ=Europe/Berlin
     restart: unless-stopped
