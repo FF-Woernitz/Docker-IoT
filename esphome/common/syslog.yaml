@@ -1,0 +1,19 @@
+---
+# Syslog component
+#
+# The syslog component automatically sends all log messages through to the iot server
+#
+# https://esphome.io/components/logger.html
+#
+
+substitutions:
+  syslog_server: "10.2.1.11"
+  syslog_port: "514"
+
+external_components:
+  - source: github://TheStaticTurtle/esphome_syslog
+    components: [syslog]
+
+syslog:
+  ip_address: "${syslog_server}"
+  port: "${syslog_port}"
