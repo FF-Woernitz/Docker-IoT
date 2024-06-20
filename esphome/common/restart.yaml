@@ -1,0 +1,9 @@
+---
+# Restart
+#
+# https://esphome.io/components/switch/restart.html
+#
+switch:
+  - platform: restart
+    id: switch_restart
+    name: "ESPH ${friendly_name} Restart"    

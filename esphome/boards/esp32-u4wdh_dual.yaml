@@ -1,0 +1,15 @@
+---
+# ESP32-U4WDH Dual-Core
+#
+
+esphome:
+  <<: !include .esphome.yaml
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: arduino
+
+i2c:
+  sda: GPIO26
+  scl: GPIO25

@@ -1,0 +1,34 @@
+---
+# Time
+#
+# The time component allows you to set up real time clock time sources
+# for ESPHome.
+#
+# https://esphome.io/components/time.html
+#
+substitutions:
+  time_timezone: "Europe/Berlin"
+
+time:
+  - platform: homeassistant
+    id: time_homeassistant
+    timezone: "${time_timezone}"
+    on_time_sync:
+      - component.update: sensor_uptime_timestamp
+
+sensor:
+  - platform: uptime
+    id: sensor_uptime
+    internal: true
+    
+  - platform: template
+    id: sensor_uptime_timestamp
+    name: "ESPH ${friendly_name} Uptime"
+    device_class: "timestamp"
+    accuracy_decimals: 0
+    update_interval: never
+    lambda: |-
+      static float timestamp = (
+        id(time_homeassistant).utcnow().timestamp - id(sensor_uptime).state
+      );
+      return timestamp;

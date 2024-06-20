@@ -1,0 +1,73 @@
+substitutions:
+  system_name: leinwand
+  friendly_name: Leinwand
+  device_description: "Leinwand Fahrzeughalle"
+  ip4: "37"
+
+  open_duration: 54s
+  close_duration: 53s
+  max_duration: 70s
+  start_sensing_delay: 1.5s
+  moving_current_threshold: "0.2"
+  obstacle_current_threshold: "0.8"
+
+  failsafe_pos: "0%"
+  cover_name: "Leinwand"
+
+packages:
+  device: !include devices/shelly_2pm_0.1.9_dual.yaml
+
+binary_sensor:
+  - id: !extend input_1
+    disabled_by_default: true
+  - id: !extend input_2
+    disabled_by_default: true
+
+switch:
+  - id: !extend relay_1
+    interlock: [ relay_2 ]
+    interlock_wait_time: 200ms
+  - id: !extend relay_2
+    interlock: [ relay_1 ]
+    interlock_wait_time: 200ms
+
+script:
+  - id: failsafe
+    then:
+      - cover.control:
+          id: cover_1
+          position: ${failsafe_pos}
+
+cover:
+  - platform: current_based
+    id: cover_1
+    device_class: window
+    name: ${cover_name}
+    open_action:
+      - switch.turn_on: relay_1
+    close_action:
+      - switch.turn_on: relay_2
+    stop_action:
+      - switch.turn_off: relay_1
+      - switch.turn_off: relay_2
+    open_sensor: current_channel_1
+    open_moving_current_threshold: ${moving_current_threshold}
+    open_obstacle_current_threshold: ${obstacle_current_threshold}
+    open_duration: ${open_duration}
+    close_sensor: current_channel_2
+    close_moving_current_threshold: ${moving_current_threshold}
+    close_obstacle_current_threshold: ${obstacle_current_threshold}
+    close_duration: ${close_duration}
+    max_duration: ${max_duration}
+    start_sensing_delay: ${start_sensing_delay}
+    malfunction_detection: true
+    malfunction_action:
+      then:
+        - switch.turn_off: relay_1
+        - switch.turn_off: relay_2
+        - homeassistant.service:
+            service: persistent_notification.create
+            data:
+              title: "Message from ${devicename}"
+            data_template:
+              message: "Malfunction detected."

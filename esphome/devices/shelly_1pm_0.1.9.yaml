@@ -1,0 +1,134 @@
+---
+# Device: Shelly Plus 1PM 0.1.9
+#
+# https://devices.esphome.io/devices/Shelly-Plus-1PM
+#
+substitutions:
+  output_name_1: "Relay 1"
+  input_name_1: "Input 1"
+  max_power: "3600.0"
+  max_temp: "80.0"
+  # Higher value gives lower watt readout
+  current_res: "0.001"
+  # Lower value gives lower voltage readout
+  voltage_div: "1925"
+
+packages:
+  <<: !include_dir_named ../common
+  board: !include ../boards/esp32-u4wdh_single.yaml
+
+captive_portal: !remove
+
+binary_sensor:
+  - platform: gpio
+    id: device_button
+    name: "ESPH ${friendly_name} On-Board Button"
+    pin:
+      number: GPIO25
+      mode: INPUT_PULLUP
+      inverted: true
+
+  - platform: gpio
+    id: "input_1"
+    name: "${input_name_1}"
+    pin: GPIO4
+    filters:
+      - delayed_on_off: 50ms
+
+status_led:
+  pin:
+    number: GPIO0
+    ignore_strapping_warning: true
+    inverted: true
+
+switch:
+  - platform: gpio
+    id: "relay_1"
+    pin: GPIO26
+    name: "${output_name_1} Output"
+    restore_mode: ALWAYS_OFF
+
+sensor:
+  # Internal NTC Temperature sensor
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: "ESPH ${friendly_name} Temperature"
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    icon: "mdi:thermometer"
+    entity_category: 'diagnostic'
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+    on_value_range:
+      - above: ${max_temp}
+        then:
+          - switch.turn_off: "relay_1"
+          - homeassistant.service:
+              service: persistent_notification.create
+              data:
+                title: "Message from ESPH ${friendly_name}"
+              data_template:
+                message: "Relays turned off because temperature exceeded ${max_temp}°C"
+
+  # Required for NTC sensor
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    resistor: 10kOhm
+
+  # Required for NTC sensor
+  - platform: adc
+    id: temp_analog_reading
+    pin: GPIO35
+    attenuation: 12db
+    update_interval: 10s
+
+  - platform: adc
+    name: "ESPH ${friendly_name} Voltage Relay"
+    entity_category: 'diagnostic'
+    pin: GPIO33
+    attenuation: 12db
+    filters:
+      - multiply: 8
+
+  - platform: hlw8012
+    model: BL0937
+    sel_pin:
+      number: GPIO23
+      inverted: true
+    cf_pin:
+      number: GPIO5
+      ignore_strapping_warning: true
+    cf1_pin: GPIO18
+    current_resistor: ${current_res}
+    voltage_divider: ${voltage_div}
+    current:
+      name: "${output_name_1} Current"
+      unit_of_measurement: A
+      accuracy_decimals: 3
+      icon: mdi:flash-outline
+    voltage:
+      name: "ESPH ${friendly_name} Voltage"
+      unit_of_measurement: V
+      accuracy_decimals: 1
+      icon: mdi:flash-outline
+    power:
+      name: "${output_name_1} Power"
+      unit_of_measurement: W
+      id: power
+      icon: mdi:flash-outline
+      on_value_range:
+        - above: ${max_power}
+          then:
+            - switch.turn_off: "relay_1"
+            - homeassistant.service:
+                service: persistent_notification.create
+                data:
+                  title: "Message from ESPH ${friendly_name}"
+                data_template:
+                  message: "${output_name_1} turned off because power exceeded ${max_power}W"
+    change_mode_every: 2
+    update_interval: 0.5s

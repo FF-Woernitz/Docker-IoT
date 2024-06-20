@@ -1,0 +1,9 @@
+---
+# Status
+#
+# https://esphome.io/components/text_sensor/version.html
+#
+text_sensor:
+  - platform: version
+    id: text_sensor_version
+    name: "ESPH ${friendly_name} Version"    

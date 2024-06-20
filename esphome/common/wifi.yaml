@@ -1,0 +1,64 @@
+---
+# Wi-Fi component package
+#
+# Contains my common Wi-Fi setup.
+#
+# https://esphome.io/components/wifi.html
+#
+substitutions:
+  wifi_ssid: !secret wifi_ssid
+  wifi_password: !secret wifi_password
+  wifi_ap_password: !secret wifi_fallback_password
+
+wifi:
+  id: component_wifi
+  ssid: "${wifi_ssid}"
+  password: "${wifi_password}"
+  reboot_timeout: 10min
+  manual_ip:
+    static_ip: "10.2.1.${ip4}"
+    gateway: "10.2.1.1"
+    subnet: "255.255.255.0"
+    dns1: "10.2.1.1"
+  domain: ".admin.local"
+  ap:
+    ssid: "${friendly_name} AP"
+    password: "${wifi_ap_password}"
+
+sensor:
+  - platform: wifi_signal
+    id: sensor_wifi_signal
+    name: "ESPH ${friendly_name} WiFi Signal"
+    update_interval: 300s
+    on_value:
+      - component.update: sensor_wifi_signal_percentage
+
+  - platform: template
+    id: sensor_wifi_signal_percentage
+    name: "ESPH ${friendly_name} WiFi Signal Percentage"
+    icon: "mdi:wifi"
+    unit_of_measurement: "%"
+    update_interval: never
+    lambda: |-
+      if (id(sensor_wifi_signal).state) {
+        if (id(sensor_wifi_signal).state <= -100 ) {
+          return 0;
+        } else if (id(sensor_wifi_signal).state >= -50) {
+          return 100;
+        } else {
+          return 2 * (id(sensor_wifi_signal).state + 100);
+        }
+      } else {
+        return NAN;
+      }
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "ESPH ${friendly_name} IP Address"
+    ssid:
+      name: "ESPH ${friendly_name} Connected SSID"
+    bssid:
+      name: "ESPH ${friendly_name} Connected BSSID"
+    mac_address:
+      name: "ESPH ${friendly_name} Connected MAC" 

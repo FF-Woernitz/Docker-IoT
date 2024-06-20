@@ -5,7 +5,6 @@ networks:
 volumes:
   mosquitto-data:
   node-red-data:
-  esphome-data:
 #  influxdb-data:
 #  grafana-data:
 #  chronograf-data:
@@ -87,7 +86,7 @@ services:
     container_name: esphome
     image: ghcr.io/esphome/esphome
     volumes:
-      - esphome-data:/config
+      - ./esphome:/config
     ports:
       - "6052:6052/tcp"
     environment:
