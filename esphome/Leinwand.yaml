@@ -8,8 +8,8 @@ substitutions:
   close_duration: 53s
   max_duration: 70s
   start_sensing_delay: 1.5s
-  moving_current_threshold: "0.2"
-  obstacle_current_threshold: "0.8"
+  moving_current_threshold: "0.35"
+  obstacle_current_threshold: "0.6"
 
   failsafe_pos: "0%"
   cover_name: "Leinwand"
@@ -68,6 +68,6 @@ cover:
         - homeassistant.service:
             service: persistent_notification.create
             data:
-              title: "Message from ${devicename}"
+              title: "Message from ${friendly_name}"
             data_template:
               message: "Malfunction detected."

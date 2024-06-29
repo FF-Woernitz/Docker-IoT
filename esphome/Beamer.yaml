@@ -6,8 +6,14 @@ substitutions:
   ip4: "36"
 
 packages:
-  device: !include devices/shelly_1pm_0.1.9.yaml
+  device: !include devices/shelly_2pm_0.1.9_dual.yaml
 
 binary_sensor:
   - id: !extend input_1
+    disabled_by_default: true
+  - id: !extend input_2
+    disabled_by_default: true
+
+switch:
+  - id: !extend relay_2
     disabled_by_default: true

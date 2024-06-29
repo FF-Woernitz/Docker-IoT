@@ -25,6 +25,8 @@ wifi:
     ssid: "${friendly_name} AP"
     password: "${wifi_ap_password}"
 
+captive_portal:
+
 sensor:
   - platform: wifi_signal
     id: sensor_wifi_signal

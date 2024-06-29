@@ -48,13 +48,13 @@ status_led:
 switch:
   - platform: gpio
     id: "relay_1"
-    pin: GPIO12
+    pin: GPIO13
     name: "${output_name_1} Output"
     restore_mode: ALWAYS_OFF
 
   - platform: gpio
     id: "relay_2"
-    pin: GPIO13
+    pin: GPIO12
     name: "${output_name_2} Output"
     restore_mode: ALWAYS_OFF
 
