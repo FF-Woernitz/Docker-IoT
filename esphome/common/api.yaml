@@ -1,4 +1,5 @@
 ---
 # https://esphome.io/components/api.html
 api:
-  password: !secret api_password
+  encryption:
+    key: !secret api_key
