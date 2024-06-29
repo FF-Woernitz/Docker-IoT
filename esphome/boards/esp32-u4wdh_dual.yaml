@@ -13,3 +13,4 @@ esp32:
 i2c:
   sda: GPIO26
   scl: GPIO25
+  frequency: 400kHz
