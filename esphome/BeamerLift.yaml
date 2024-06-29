@@ -11,11 +11,19 @@ substitutions:
   moving_current_threshold: "0.2"
   obstacle_current_threshold: "0.8"
 
-  failsafe_pos: "20%"
+  failsafe_pos: "80%"
   cover_name: "Beamer Lift"
 
 packages:
   device: !include devices/shelly_2pm_0.1.9_dual.yaml
+
+api:
+  on_client_disconnected:
+    - script.execute: failsafe
+
+wifi:
+  on_disconnect:
+    - script.execute: failsafe
 
 binary_sensor:
   - id: !extend input_1

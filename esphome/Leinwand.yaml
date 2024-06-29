@@ -10,11 +10,19 @@ substitutions:
   moving_current_threshold: "0.35"
   obstacle_current_threshold: "0.6"
 
-  failsafe_pos: "0%"
+  failsafe_pos: "50%"
   cover_name: "Leinwand"
 
 packages:
   device: !include devices/shelly_2pm_0.1.9_dual.yaml
+
+api:
+  on_client_disconnected:
+    - script.execute: failsafe
+
+wifi:
+  on_disconnect:
+    - script.execute: failsafe
 
 binary_sensor:
   - id: !extend input_1
