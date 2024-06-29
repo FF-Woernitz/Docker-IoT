@@ -114,6 +114,8 @@ sensor:
       name: "${output_name_1} Power"
       id: power_channel_1
       entity_category: 'diagnostic'
+      filters:
+        - multiply: -1
       on_value_range:
         - above: ${max_power}
           then:
@@ -128,6 +130,8 @@ sensor:
       name: "${output_name_2} Power"
       id: power_channel_2
       entity_category: 'diagnostic'
+      filters:
+        - multiply: -1
       on_value_range:
         - above: ${max_power}
           then:
