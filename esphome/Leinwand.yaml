@@ -2,7 +2,6 @@ substitutions:
   system_name: leinwand
   friendly_name: Leinwand
   device_description: "Leinwand Fahrzeughalle"
-  ip4: "37"
 
   open_duration: 54s
   close_duration: 53s

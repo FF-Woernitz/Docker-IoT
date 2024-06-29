@@ -3,7 +3,6 @@ substitutions:
   friendly_name: Beamer Lift
   device_description: "Beamer Lift Fahrzeughalle"
   input_name_1: "Safe Height"
-  ip4: "35"
 
   open_duration: 54s
   close_duration: 53s

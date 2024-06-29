@@ -15,11 +15,11 @@ wifi:
   ssid: "${wifi_ssid}"
   password: "${wifi_password}"
   reboot_timeout: 10min
-  manual_ip:
-    static_ip: "10.2.1.${ip4}"
-    gateway: "10.2.1.1"
-    subnet: "255.255.255.0"
-    dns1: "10.2.1.1"
+#  manual_ip:
+#    static_ip: "10.2.1.${ip4}"
+#    gateway: "10.2.1.1"
+#    subnet: "255.255.255.0"
+#    dns1: "10.2.1.1"
   domain: ".admin.local"
   ap:
     ssid: "${friendly_name} AP"

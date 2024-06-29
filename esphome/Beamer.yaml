@@ -3,7 +3,6 @@ substitutions:
   friendly_name: Beamer
   device_description: "Beamer power and energy monitoring"
   output_name_1: "Beamer"
-  ip4: "36"
 
 packages:
   device: !include devices/shelly_2pm_0.1.9_dual.yaml
