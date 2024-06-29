@@ -8,5 +8,6 @@
 #
 logger:
   id: component_logger
+  level: INFO
   # Disabling logging over UART by default.
   baud_rate: 0
