@@ -74,6 +74,6 @@ cover:
         - homeassistant.service:
             service: persistent_notification.create
             data:
-              title: "Message from ${devicename}"
+              title: "Message from ${friendly_name}"
             data_template:
               message: "Malfunction detected."
