@@ -26,8 +26,6 @@ wifi:
     - script.execute: failsafe
 
 binary_sensor:
-  - id: !extend input_1
-    disabled_by_default: true
   - id: !extend input_2
     disabled_by_default: true
 

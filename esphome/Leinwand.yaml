@@ -3,9 +3,9 @@ substitutions:
   friendly_name: Leinwand
   device_description: "Leinwand Fahrzeughalle"
 
-  open_duration: 54s
-  close_duration: 53s
-  max_duration: 70s
+  open_duration: 43s
+  close_duration: 46s
+  max_duration: 55s
   start_sensing_delay: 1.5s
   moving_current_threshold: "0.35"
   obstacle_current_threshold: "0.6"
