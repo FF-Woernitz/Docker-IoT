@@ -8,8 +8,8 @@ homeassistant:
         10.2.1.30/32: ded5b5cae8b24592aa36bad472ff5b92
   name: FFW
   # Location required to calculate the time the sun rises and sets
-  latitude: 49.3
-  longitude: 10.2
+  latitude: 49.252909
+  longitude: 10.2431055
   country: DE
   elevation: 460
     # C for Celcius, F for Fahrenheit
@@ -18,28 +18,15 @@ homeassistant:
   time_zone: Europe/Berlin
   unit_system: metric
   customize_glob:
-    "cover.*":
+    "cover.gate":
       assumed_state: true
 
-backup:
-counter:
-frontend:
 homeassistant_alerts:
 history:
-input_boolean:
-input_button:
-input_datetime:
-input_number:
-input_select:
-input_text:
 logbook:
 my:
-network:
-ssdp:
 sun:
-system_health:
 timer:
-webhook:
 
 sensor:
   - platform: time_date
@@ -68,17 +55,5 @@ logger:
   filters:
     homeassistant.components.websocket_api.http.connection:
       - "Error handling message: Unknown error" # Bug in browser_mod
-
-panel_iframe:
-  panel_nodered:
-    title: NodeRED
-    icon: mdi:nodejs
-    url: http://10.2.1.11:1880/
-    require_admin: true
-  panel_zigbee2mqtt:
-    title: Zigbee2MQTT
-    icon: mdi:zigbee
-    url: http://10.2.1.11:8080/
-    require_admin: true
 
 browser_mod:
