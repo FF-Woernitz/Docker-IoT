@@ -11,6 +11,7 @@ substitutions:
   obstacle_current_threshold: "0.6"
 
   failsafe_pos: "50%"
+  failsafe_pos_c: "0.5F"
   cover_name: "Leinwand"
 
 packages:
@@ -41,9 +42,20 @@ switch:
 script:
   - id: failsafe
     then:
-      - cover.control:
-          id: cover_1
-          position: ${failsafe_pos}
+      - if:
+          condition:
+            lambda: 'return id(cover_1).position < $failsafe_pos_c;'
+          then:
+            - logger.log:
+                format:  "Lost connection. Moving to failsafe position."
+                level: WARN
+            - cover.control:
+                id: cover_1
+                position: ${failsafe_pos}
+          else:
+            - logger.log:
+                format:  "Lost connection. Not moving to failsafe position, as we are already safe."
+                level: WARN
 
 cover:
   - platform: current_based

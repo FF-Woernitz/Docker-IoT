@@ -4,14 +4,15 @@ substitutions:
   device_description: "Beamer Lift Fahrzeughalle"
   input_name_1: "Safe Height"
 
-  open_duration: 54s
-  close_duration: 53s
-  max_duration: 70s
+  open_duration: 14s
+  close_duration: 13s
+  max_duration: 17s
   start_sensing_delay: 1.5s
   moving_current_threshold: "0.2"
   obstacle_current_threshold: "0.8"
 
   failsafe_pos: "80%"
+  failsafe_pos_c: "0.8F"
   cover_name: "Beamer Lift"
 
 packages:
@@ -40,9 +41,20 @@ switch:
 script:
   - id: failsafe
     then:
-      - cover.control:
-          id: cover_1
-          position: ${failsafe_pos}
+      - if:
+          condition:
+            lambda: 'return id(cover_1).position < $failsafe_pos_c;'
+          then:
+            - logger.log:
+                format:  "Lost connection. Moving to failsafe position."
+                level: WARN
+            - cover.control:
+                id: cover_1
+                position: ${failsafe_pos}
+          else:
+            - logger.log:
+                format:  "Lost connection. Not moving to failsafe position, as we are already safe."
+                level: WARN
 
 cover:
   - platform: current_based
