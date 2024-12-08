@@ -5,14 +5,14 @@
   target_sensor: sensor.temp_garage_front
   min_temp: 15
   max_temp: 30
-  target_temp: 20
+  target_temp: 19
   initial_hvac_mode: heat
   target_temp_step: 0.5
-  cold_tolerance: 0.5
-  hot_tolerance: 0.5
+  cold_tolerance: 1
+  hot_tolerance: 1
   away_temp: 15
-  home_temp: 20
-  activity_temp: 25
+  home_temp: 19
+  activity_temp: 23
 
 - platform: generic_thermostat
   name: "Heizung Fahrzeughalle Hinten"
@@ -21,11 +21,11 @@
   target_sensor: sensor.temp_garage_back
   min_temp: 15
   max_temp: 30
-  target_temp: 20
+  target_temp: 19
   initial_hvac_mode: heat
   target_temp_step: 0.5
-  cold_tolerance: 0.5
-  hot_tolerance: 0.5
+  cold_tolerance: 1
+  hot_tolerance: 1
   away_temp: 15
-  home_temp: 20
-  activity_temp: 25
+  home_temp: 19
+  activity_temp: 23
