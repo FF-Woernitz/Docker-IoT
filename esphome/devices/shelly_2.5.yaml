@@ -1,7 +1,7 @@
 ---
-# Device: Shelly Plus 2PM 0.1.9 Dual-Core
+# Device: Shelly 2.5
 #
-# https://devices.esphome.io/devices/Shelly-Plus-2PM
+# https://devices.esphome.io/devices/Shelly-25
 #
 substitutions:
   output_name_1: "Relay 1"
