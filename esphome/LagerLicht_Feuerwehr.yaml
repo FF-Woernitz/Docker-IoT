@@ -1,0 +1,23 @@
+substitutions:
+  system_name: lager-licht_f
+  friendly_name: "Lager Licht Feuerwehr"
+  device_description: "Lager Licht Feuerwehr"
+  output_name_1: "Licht Feuerwehr"
+
+packages:
+  device: !include devices/shelly_2.5.yaml
+
+binary_sensor:
+  - id: !extend input_1
+    disabled_by_default: true
+    on_state:
+      then:
+        - switch.toggle: relay_1
+  - id: !extend input_2
+    disabled_by_default: true
+
+switch:
+  - id: !extend relay_1
+    restore_mode: RESTORE_DEFAULT_OFF
+  - id: !extend relay_2
+    disabled_by_default: true

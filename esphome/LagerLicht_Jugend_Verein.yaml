@@ -1,0 +1,27 @@
+substitutions:
+  system_name: lager-licht_jv
+  friendly_name: "Lager Licht Jugend / Verein"
+  device_description: "Lager Licht Jugend / Verein"
+  output_name_1: "Licht Verein"
+  output_name_2: "Licht Jugend"
+
+packages:
+  device: !include devices/shelly_2.5.yaml
+
+binary_sensor:
+  - id: !extend input_1
+    disabled_by_default: true
+    on_state:
+      then:
+        - switch.toggle: relay_1
+  - id: !extend input_2
+    disabled_by_default: true
+    on_state:
+      then:
+        - switch.toggle: relay_2
+
+switch:
+  - id: !extend relay_1
+    restore_mode: RESTORE_DEFAULT_OFF
+  - id: !extend relay_2
+    restore_mode: RESTORE_DEFAULT_OFF
