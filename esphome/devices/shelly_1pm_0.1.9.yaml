@@ -17,8 +17,6 @@ packages:
   <<: !include_dir_named ../common
   board: !include ../boards/esp32-u4wdh_single.yaml
 
-captive_portal: !remove
-
 binary_sensor:
   - platform: gpio
     id: device_button

@@ -1,0 +1,93 @@
+---
+# Device: Shelly Plus 0-10V Dimmer
+#
+# https://devices.esphome.io/devices/Shelly-Plus-0-10V-Dimmer
+#
+substitutions:
+  input_name_1: "Input 1"
+  input_name_2: "Input 2"
+  max_temp: "80.0"
+
+packages:
+  <<: !include_dir_named ../common
+  board: !include ../boards/esp32-u4wdh_single.yaml
+
+captive_portal: !remove
+web_server: !remove
+syslog: !remove
+
+binary_sensor:
+  - platform: gpio
+    id: device_button
+    name: "ESPH ${friendly_name} On-Board Button"
+    pin:
+      number: GPIO25
+      mode: INPUT_PULLUP
+      inverted: true
+
+  - platform: gpio
+    id: "input_1"
+    name: "${input_name_1}"
+    pin: GPIO4
+    filters:
+      - delayed_on_off: 50ms
+
+  - platform: gpio
+    id: "input_2"
+    name: "${input_name_2}"
+    pin: GPIO18
+    filters:
+      - delayed_on_off: 50ms
+
+output:
+  - platform: ledc
+    pin: GPIO26
+    id: output_1
+    frequency: "1220Hz"
+    channel: 0
+    min_power: 0.6
+    zero_means_zero: true
+
+status_led:
+  pin:
+    number: GPIO0
+    ignore_strapping_warning: true
+    inverted: true
+
+sensor:
+  # Internal NTC Temperature sensor
+  - platform: ntc
+    sensor: temp_resistance_reading
+    name: "ESPH ${friendly_name} Temperature"
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    icon: "mdi:thermometer"
+    entity_category: 'diagnostic'
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+    on_value_range:
+      - above: ${max_temp}
+        then:
+          - output.turn_off: output_1
+          - homeassistant.service:
+              service: persistent_notification.create
+              data:
+                title: "Message from ESPH ${friendly_name}"
+              data_template:
+                message: "Output turned off because temperature exceeded ${max_temp}°C"
+
+  # Required for NTC sensor
+  - platform: resistance
+    id: temp_resistance_reading
+    sensor: temp_analog_reading
+    configuration: DOWNSTREAM
+    resistor: 10kOhm
+
+  # Required for NTC sensor
+  - platform: adc
+    id: temp_analog_reading
+    pin: GPIO32
+    attenuation: 12db
+    update_interval: 10s

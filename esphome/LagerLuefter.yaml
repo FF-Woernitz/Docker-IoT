@@ -1,0 +1,20 @@
+substitutions:
+  system_name: lager-luefter
+  friendly_name: "Lager Luefter"
+  device_description: "Lager Luefter_Heizung"
+
+packages:
+  device: !include devices/shelly_0-10V.yaml
+
+binary_sensor:
+  - id: !extend input_1
+    disabled_by_default: true
+  - id: !extend input_2
+    disabled_by_default: true
+
+fan:
+  - platform: speed
+    output: output_1
+    id: fan_1
+    name: "Lüfter Lager"
+    restore_mode: ALWAYS_OFF
