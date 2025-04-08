@@ -45,3 +45,19 @@
   state_off: "off"
   payload_available: "online"
   payload_not_available: "offline"
+
+- name: "Audio"
+  object_id: "output_audio"
+  unique_id: "sps_ffw1.output_audio"
+  command_topic: "sps_ffw1/output_audio/cmd"
+  state_topic: "sps_ffw1/output_audio/state"
+  availability:
+    - topic: "sps_ffw1/status"
+  qos: 0
+  retain: false
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_on: "on"
+  state_off: "off"
+  payload_available: "online"
+  payload_not_available: "offline"

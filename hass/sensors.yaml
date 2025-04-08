@@ -85,3 +85,47 @@
     - topic: "sps_ffw1/status"
   payload_available: "online"
   payload_not_available: "offline"
+
+- name: "Temperatur Lager Feuerwehr"
+  object_id: "temp_storage_fw"
+  unique_id: "sps_ffw1.temp_storage_fw"
+  state_topic: "sps_ffw1/sensor14/temp"
+  suggested_display_precision: 1
+  unit_of_measurement: "°C"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Feuchtigkeit Lager Feuerwehr"
+  object_id: "humd_storage_fw"
+  unique_id: "sps_ffw1.humd_storage_fw"
+  state_topic: "sps_ffw1/sensor14/humd"
+  suggested_display_precision: 1
+  unit_of_measurement: "%"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Temperatur Lager Jugend"
+  object_id: "temp_storage_teen"
+  unique_id: "sps_ffw1.temp_storage_teen"
+  state_topic: "sps_ffw1/sensor15/temp"
+  suggested_display_precision: 1
+  unit_of_measurement: "°C"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: "Feuchtigkeit Lager Jugend"
+  object_id: "humd_storage_teen"
+  unique_id: "sps_ffw1.humd_storage_teen"
+  state_topic: "sps_ffw1/sensor15/humd"
+  suggested_display_precision: 1
+  unit_of_measurement: "%"
+  availability:
+    - topic: "sps_ffw1/status"
+  payload_available: "online"
+  payload_not_available: "offline"
