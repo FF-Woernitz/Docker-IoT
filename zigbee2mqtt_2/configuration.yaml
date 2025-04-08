@@ -2,10 +2,10 @@ homeassistant:
   enabled: true
 advanced:
   transmit_power: 20
-  channel: 25
+  channel: 11
   network_key: '!secret network_key'
   log_syslog:
-    app_name: Zigbee2MQTT
+    app_name: Zigbee2MQTT_2
     eol: /n
     host: localhost
     localhost: localhost
@@ -17,15 +17,16 @@ advanced:
   last_seen: ISO_8601
   log_level: debug
 serial:
-  port: tcp://10.2.1.32:6638
+  port: tcp://10.2.1.41:6638
   adapter: zstack
   baudrate: 115200
   disable_led: false
 frontend:
   enabled: true
+  port: 8081
 devices: devices.yaml
 mqtt:
-  base_topic: zigbee2mqtt
+  base_topic: zigbee2mqtt_2
   server: mqtt://mqtt
   user: '!secret user'
   password: '!secret password'

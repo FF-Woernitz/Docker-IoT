@@ -64,6 +64,17 @@ services:
       - TZ=Europe/Berlin
     restart: unless-stopped
 
+  zigbee2mqtt_2:
+    container_name: zigbee2mqtt_2
+    image: koenkk/zigbee2mqtt
+    volumes:
+      - ./zigbee2mqtt_2:/app/data
+    ports:
+      - "8081:8081/tcp"
+    environment:
+      - TZ=Europe/Berlin
+    restart: unless-stopped
+
   dali2mqtt:
     container_name: dali2mqtt
     privileged: true
