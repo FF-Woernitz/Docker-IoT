@@ -43,9 +43,8 @@ output:
   - platform: ledc
     pin: GPIO26
     id: output_1
-    frequency: "1220Hz"
+    frequency: "2241Hz"
     channel: 0
-    min_power: 0.6
     zero_means_zero: true
 
 status_led:
