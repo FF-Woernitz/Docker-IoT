@@ -74,24 +74,24 @@ services:
     environment:
       - TZ=Europe/Berlin
     restart: unless-stopped
-
-  dali2mqtt:
-    container_name: dali2mqtt
-    privileged: true
-    image: ghcr.io/tobsa13/dali2mqtt:master
-    devices:
-      - /dev/dali:/dev/dali
-    environment:
-      - D2M_MQTT_SERVER=mqtt
-      - D2M_MQTT_PORT=1883
-      - D2M_MQTT_USERNAME=d2m
-      - D2M_LOG_LEVEL=debug
-      - D2M_LOG_COLOR=true
-      - D2M_DALI_LAMPS=24
-      - D2M_GROUP_MODE=mean
-      - TZ=Europe/Berlin
-    env_file: dali2mqtt.env
-    restart: unless-stopped
+#
+#  dali2mqtt:
+#    container_name: dali2mqtt
+#    privileged: true
+#    image: ghcr.io/tobsa13/dali2mqtt:master
+#    devices:
+#      - /dev/dali:/dev/dali
+#    environment:
+#      - D2M_MQTT_SERVER=mqtt
+#      - D2M_MQTT_PORT=1883
+#      - D2M_MQTT_USERNAME=d2m
+#      - D2M_LOG_LEVEL=debug
+#      - D2M_LOG_COLOR=true
+#      - D2M_DALI_LAMPS=24
+#      - D2M_GROUP_MODE=mean
+#      - TZ=Europe/Berlin
+#    env_file: dali2mqtt.env
+#    restart: unless-stopped
 
   esphome:
     container_name: esphome
