@@ -2,8 +2,10 @@ homeassistant:
   enabled: true
 advanced:
   transmit_power: 20
-  channel: 11
+  channel: 24
   network_key: '!secret network_key'
+  pan_id: 0x1a63
+  ext_pan_id: [0xDD, 0xDD, 0xDD, 0xDD, 0xDD, 0xDD, 0xDD, 0xDE]
   log_syslog:
     app_name: Zigbee2MQTT_2
     eol: /n
@@ -15,7 +17,7 @@ advanced:
     protocol: udp4
     type: '5424'
   last_seen: ISO_8601
-  log_level: debug
+  log_level: info
 serial:
   port: tcp://10.2.1.41:6638
   adapter: zstack

@@ -4,8 +4,6 @@
   friendly_name: router_putzraum
 '0x005043c903356c44':
   friendly_name: putzraum
-'0x005043c9a3388e3b':
-  friendly_name: halle_mitte
 '0x005043c9a337a665':
   friendly_name: schlauchwascheanlage
 '0x005043c9a3362152':
@@ -38,15 +36,18 @@
   friendly_name: lager_verein
 '0x005043c90335662b':
   friendly_name: dachboden_lager
-'0x005043c903351789':
-  friendly_name: wc_unten
 '0xa4c138ddc7c4382d':
   friendly_name: '0xa4c138ddc7c4382d'
 '0x00158d0003cc156e':
   friendly_name: '0x00158d0003cc156e'
 '0x00158d0007c5bbef':
   friendly_name: '0x00158d0007c5bbef'
-'0x8c6fb9fffe2d47ff':
-  friendly_name: '0x8c6fb9fffe2d47ff'
+'0x005043c9a3388e3b':
+  friendly_name: halle_mitte
+  homeassistant:
+    name: halle_mitte
+  optimistic: true
 '0x0015bc0031027147':
   friendly_name: '0x0015bc0031027147'
+'0x005043c903351789':
+  friendly_name: wc_unten
