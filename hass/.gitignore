@@ -1,9 +1,7 @@
 *
 !configuration.yaml
-!automations.yaml
 !groups.yaml
 !scenes.yaml
-!scripts.yaml
 
 !gates.yaml
 !switches.yaml
