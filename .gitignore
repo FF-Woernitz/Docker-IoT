@@ -3,4 +3,4 @@
 
 backups/*.backup
 
-dali2mqtt.env
+*.env
