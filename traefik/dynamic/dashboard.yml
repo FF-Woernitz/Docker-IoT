@@ -1,0 +1,8 @@
+http:
+  routers:
+    router-dashboard-ssl:
+      rule: "Host(`traefik.iot.vpn.ffw-it.de`)"
+      entrypoints: websecure
+      middlewares: sso-auth@file
+      tls: true
+      service: "api@internal"

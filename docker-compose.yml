@@ -1,15 +1,60 @@
 networks:
   default:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
 
 volumes:
   mosquitto-data:
   node-red-data:
-#  influxdb-data:
-#  grafana-data:
-#  chronograf-data:
+  traefik-certs_data:
 
 services:
+  traefik:
+    container_name: traefik
+    image: traefik:latest
+    restart: unless-stopped
+    ports:
+      # Public HTTP Port:
+      - '80:80'
+      # Public HTTPS Port:
+      - '443:443'
+      # MQTT
+      - '8883:8883'
+      - '8884:8884'
+    environment:
+      - HETZNER_API_KEY=${HETZNER_API_KEY}
+      - TZ=Europe/Berlin
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./traefik/config.yml:/etc/traefik/traefik.yml:ro"
+      - "./traefik/dynamic:/etc/traefik/dynamic:ro"
+      - "traefik-certs_data:/etc/traefik/certs"
+
+  authentik_proxy:
+    container_name: authentik_proxy
+    image: ghcr.io/goauthentik/proxy:2025.12.4
+    restart: unless-stopped
+    environment:
+      - AUTHENTIK_HOST=https://auth.ffw-it.de
+      - AUTHENTIK_INSECURE=false
+    env_file:
+      - authentik.env
+
+  watchtower:
+    container_name: watchtower
+    image: nickfedor/watchtower
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Berlin
+      - WATCHTOWER_MONITOR_ONLY=true
+      - WATCHTOWER_NOTIFICATION_URL=${WATCHTOWER_NOTIFICATION_URL}
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   mqtt:
     container_name: mqtt
     image: "eclipse-mosquitto"
@@ -21,6 +66,20 @@ services:
     environment:
       - TZ=Europe/Berlin
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.tcp.routers.mqtt-private.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mqtt-private.entrypoints=mqtt-private"
+      - "traefik.tcp.routers.mqtt-private.tls=true"
+      - "traefik.tcp.routers.mqtt-private.service=mqtt-private"
+      - "traefik.tcp.services.mqtt-private.loadbalancer.server.port=8883"
+
+      - "traefik.tcp.routers.mqtt-private-ws.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mqtt-private-ws.entrypoints=mqtt-private-ws"
+      - "traefik.tcp.routers.mqtt-private-ws.tls=true"
+      - "traefik.tcp.routers.mqtt-private-ws.service=mqtt-private-ws"
+      - "traefik.tcp.services.mqtt-private-ws.loadbalancer.server.port=8884"
 
   hass:
     container_name: hass
@@ -32,15 +91,17 @@ services:
       - TZ=Europe/Berlin
     depends_on:
       - mqtt
-#      - influxdb
     restart: unless-stopped
-    network_mode: "host"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hass.rule=Host(`hass.iot.vpn.ffw-it.de`)"
+      - "traefik.http.routers.hass.entrypoints=websecure"
+      - "traefik.http.routers.hass.tls=true"
+      - "traefik.http.services.hass.loadbalancer.server.port=8123"
 
   node-red:
     container_name: node-red
     image: nodered/node-red
-    ports:
-      - "1880:1880/tcp"
     extra_hosts:
       - "docker-host:host-gateway"
     volumes:
@@ -52,58 +113,62 @@ services:
       - hass
     user: node-red
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.node-red.rule=Host(`flow.iot.vpn.ffw-it.de`)"
+      - "traefik.http.routers.node-red.entrypoints=websecure"
+      - "traefik.http.routers.node-red.middlewares=sso-auth@file"
+      - "traefik.http.routers.node-red.tls=true"
+      - "traefik.http.services.node-red.loadbalancer.server.port=1880"
 
   zigbee2mqtt:
     container_name: zigbee2mqtt
     image: koenkk/zigbee2mqtt
     volumes:
       - ./zigbee2mqtt:/app/data
-    ports:
-      - "8080:8080/tcp"
     environment:
       - TZ=Europe/Berlin
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.z2m.rule=Host(`z2m.iot.vpn.ffw-it.de`)"
+      - "traefik.http.routers.z2m.entrypoints=websecure"
+      - "traefik.http.routers.z2m.middlewares=sso-auth@file"
+      - "traefik.http.routers.z2m.tls=true"
+      - "traefik.http.services.z2m.loadbalancer.server.port=8080"
 
   zigbee2mqtt_2:
     container_name: zigbee2mqtt_2
     image: koenkk/zigbee2mqtt
     volumes:
       - ./zigbee2mqtt_2:/app/data
-    ports:
-      - "8081:8081/tcp"
     environment:
       - TZ=Europe/Berlin
     restart: unless-stopped
-#
-#  dali2mqtt:
-#    container_name: dali2mqtt
-#    privileged: true
-#    image: ghcr.io/tobsa13/dali2mqtt:master
-#    devices:
-#      - /dev/dali:/dev/dali
-#    environment:
-#      - D2M_MQTT_SERVER=mqtt
-#      - D2M_MQTT_PORT=1883
-#      - D2M_MQTT_USERNAME=d2m
-#      - D2M_LOG_LEVEL=debug
-#      - D2M_LOG_COLOR=true
-#      - D2M_DALI_LAMPS=24
-#      - D2M_GROUP_MODE=mean
-#      - TZ=Europe/Berlin
-#    env_file: dali2mqtt.env
-#    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.z2m-2.rule=Host(`z2m-2.iot.vpn.ffw-it.de`)"
+      - "traefik.http.routers.z2m-2.entrypoints=websecure"
+      - "traefik.http.routers.z2m-2.middlewares=sso-auth@file"
+      - "traefik.http.routers.z2m-2.tls=true"
+      - "traefik.http.services.z2m-2.loadbalancer.server.port=8080"
 
   esphome:
     container_name: esphome
     image: ghcr.io/esphome/esphome
     volumes:
       - ./esphome:/config
-    ports:
-      - "6052:6052/tcp"
     environment:
       - ESPHOME_DASHBOARD_USE_PING=true
       - TZ=Europe/Berlin
     restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.esphome.rule=Host(`esphome.iot.vpn.ffw-it.de`)"
+      - "traefik.http.routers.esphome.entrypoints=websecure"
+      - "traefik.http.routers.esphome.middlewares=sso-auth@file"
+      - "traefik.http.routers.esphome.tls=true"
+      - "traefik.http.services.esphome.loadbalancer.server.port=6052"
 
   vlmcsd:
     container_name: vlmcsd
@@ -111,43 +176,3 @@ services:
     ports:
       - "1688:1688/tcp"
     restart: unless-stopped
-
-#  influxdb:
-#    container_name: influxdb
-#    image: influxdb:1.8
-#    ports:
-#      - "127.0.0.1:8086:8086"
-#    volumes:
-#      - influxdb-data:/var/lib/influxdb
-#    environment:
-#      - TZ=Europe/Berlin
-#      - INFLUXDB_ADMIN_USER=admin
-#      - INFLUXDB_ADMIN_PASSWORD=admin
-#    restart: unless-stopped
-#
-#  grafana:
-#    container_name: grafana
-#    image: grafana/grafana:latest
-#    ports:
-#      - "3000:3000"
-#    volumes:
-#      - grafana-data:/var/lib/grafana
-#    depends_on:
-#      - influxdb
-#    environment:
-#      - TZ=Europe/Berlin
-#    restart: unless-stopped
-#
-#  chronograf:
-#    container_name: chronograf
-#    image: chronograf:latest
-#    volumes:
-#      - chronograf-data:/var/lib/chronograf
-#    depends_on:
-#      - influxdb
-#    environment:
-#      - TZ=Europe/Berlin
-#      - INFLUXDB_URL=http://influxdb:8086
-#      - INFLUXDB_USERNAME=admin
-#      - INFLUXDB_PASSWORD=admin
-#    restart: unless-stopped

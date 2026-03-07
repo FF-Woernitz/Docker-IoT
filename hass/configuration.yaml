@@ -21,12 +21,18 @@ homeassistant:
     "cover.gate":
       assumed_state: true
 
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.18.0.0/24
+
 homeassistant_alerts:
 history:
 logbook:
 my:
 sun:
 timer:
+media_source:
 
 sensor:
   - platform: time_date
@@ -57,3 +63,16 @@ logger:
       - "Error handling message: Unknown error" # Bug in browser_mod
 
 browser_mod:
+
+openid:
+  client_id: "hc3h5kBPmsxkA24CPV27xjzm7kHEO7jLbU7xG1EX"
+  client_secret: !secret openid_secret
+  configure_url: "https://auth.ffw-it.de/application/o/home-assistant-iot/.well-known/openid-configuration"
+  username_field: "preferred_username"
+  scope: "openid profile email"
+  block_login: true
+  trusted_ips: # List of CIDR blocks that are not affected by block_login
+    - "172.18.0.0/24"
+    - "10.2.1.0/24"
+  openid_text: "Login with auth.ffw-it.de"
+  create_user: false
