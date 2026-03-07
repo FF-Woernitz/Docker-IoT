@@ -1,5 +1,5 @@
 - name: "Temperatur Fahrzeughalle Vorne"
-  object_id: "temp_garage_front"
+  default_entity_id: "temp_garage_front"
   unique_id: "sps_ffw1.temp_garage_front"
   state_topic: "sps_ffw1/sensor10/temp"
   suggested_display_precision: 1
@@ -10,7 +10,7 @@
   payload_not_available: "offline"
 
 - name: "Feuchtigkeit Fahrzeughalle Vorne"
-  object_id: "humd_garage_front"
+  default_entity_id: "humd_garage_front"
   unique_id: "sps_ffw1.humd_garage_front"
   state_topic: "sps_ffw1/sensor10/humd"
   suggested_display_precision: 1
@@ -21,7 +21,7 @@
   payload_not_available: "offline"
 
 - name: "Temperatur Fahrzeughalle Mitte"
-  object_id: "temp_garage_mid"
+  default_entity_id: "temp_garage_mid"
   unique_id: "sps_ffw1.temp_garage_mid"
   state_topic: "sps_ffw1/sensor11/temp"
   suggested_display_precision: 1
@@ -32,7 +32,7 @@
   payload_not_available: "offline"
 
 - name: "Feuchtigkeit Fahrzeughalle Mitte"
-  object_id: "humd_garage_mid"
+  default_entity_id: "humd_garage_mid"
   unique_id: "sps_ffw1.humd_garage_mid"
   state_topic: "sps_ffw1/sensor11/humd"
   suggested_display_precision: 1
@@ -43,7 +43,7 @@
   payload_not_available: "offline"
 
 - name: "Temperatur Fahrzeughalle Hinten"
-  object_id: "temp_garage_back"
+  default_entity_id: "temp_garage_back"
   unique_id: "sps_ffw1.temp_garage_back"
   state_topic: "sps_ffw1/sensor12/temp"
   suggested_display_precision: 1
@@ -54,7 +54,7 @@
   payload_not_available: "offline"
 
 - name: "Feuchtigkeit Fahrzeughalle Hinten"
-  object_id: "humd_garage_back"
+  default_entity_id: "humd_garage_back"
   unique_id: "sps_ffw1.humd_garage_back"
   state_topic: "sps_ffw1/sensor12/humd"
   suggested_display_precision: 1
@@ -65,7 +65,7 @@
   payload_not_available: "offline"
 
 - name: "Temperatur IT Verteiler"
-  object_id: "temp_distribution_it"
+  default_entity_id: "temp_distribution_it"
   unique_id: "sps_ffw1.temp_distribution_it"
   state_topic: "sps_ffw1/sensor13/temp"
   suggested_display_precision: 1
@@ -76,7 +76,7 @@
   payload_not_available: "offline"
 
 - name: "Feuchtigkeit IT Verteiler"
-  object_id: "humd_distribution_it"
+  default_entity_id: "humd_distribution_it"
   unique_id: "sps_ffw1.humd_distribution_it"
   state_topic: "sps_ffw1/sensor13/humd"
   suggested_display_precision: 1
@@ -87,7 +87,7 @@
   payload_not_available: "offline"
 
 - name: "Temperatur Lager Feuerwehr"
-  object_id: "temp_storage_fw"
+  default_entity_id: "temp_storage_fw"
   unique_id: "sps_ffw1.temp_storage_fw"
   state_topic: "sps_ffw1/sensor14/temp"
   suggested_display_precision: 1
@@ -98,7 +98,7 @@
   payload_not_available: "offline"
 
 - name: "Feuchtigkeit Lager Feuerwehr"
-  object_id: "humd_storage_fw"
+  default_entity_id: "humd_storage_fw"
   unique_id: "sps_ffw1.humd_storage_fw"
   state_topic: "sps_ffw1/sensor14/humd"
   suggested_display_precision: 1
@@ -109,7 +109,7 @@
   payload_not_available: "offline"
 
 - name: "Temperatur Lager Jugend"
-  object_id: "temp_storage_teen"
+  default_entity_id: "temp_storage_teen"
   unique_id: "sps_ffw1.temp_storage_teen"
   state_topic: "sps_ffw1/sensor15/temp"
   suggested_display_precision: 1
@@ -120,7 +120,7 @@
   payload_not_available: "offline"
 
 - name: "Feuchtigkeit Lager Jugend"
-  object_id: "humd_storage_teen"
+  default_entity_id: "humd_storage_teen"
   unique_id: "sps_ffw1.humd_storage_teen"
   state_topic: "sps_ffw1/sensor15/humd"
   suggested_display_precision: 1

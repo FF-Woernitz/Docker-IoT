@@ -1,5 +1,5 @@
 - name: "Gate 1"
-  object_id: "gate1"
+  default_entity_id: "gate1"
   unique_id: "sps_ffw1.gate1"
   device_class: "garage"
   command_topic: "sps_ffw1/gate1/cmd"
@@ -20,7 +20,7 @@
   optimistic: false
 
 - name: "Gate 2"
-  object_id: "gate2"
+  default_entity_id: "gate2"
   unique_id: "sps_ffw1.gate2"
   device_class: "garage"
   command_topic: "sps_ffw1/gate2/cmd"
@@ -41,7 +41,7 @@
   optimistic: false
 
 - name: "Gate 3"
-  object_id: "gate3"
+  default_entity_id: "gate3"
   unique_id: "sps_ffw1.gate3"
   device_class: "garage"
   command_topic: "sps_ffw1/gate3/cmd"
@@ -62,7 +62,7 @@
   optimistic: false
 
 - name: "Gate 4"
-  object_id: "gate4"
+  default_entity_id: "gate4"
   unique_id: "sps_ffw1.gate4"
   device_class: "garage"
   command_topic: "sps_ffw1/gate4/cmd"
@@ -83,7 +83,7 @@
   optimistic: false
 
 - name: "Gate 5"
-  object_id: "gate5"
+  default_entity_id: "gate5"
   unique_id: "sps_ffw1.gate5"
   device_class: "garage"
   command_topic: "sps_ffw1/gate5/cmd"

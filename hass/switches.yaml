@@ -1,5 +1,5 @@
 - name: "Außenlicht"
-  object_id: "light_outside"
+  default_entity_id: "light_outside"
   unique_id: "sps_ffw1.light_outside"  
   command_topic: "sps_ffw1/light_outside/cmd"
   state_topic: "sps_ffw1/light_outside/state"
@@ -15,7 +15,7 @@
   payload_not_available: "offline"
 
 - name: "Heizung Vorne"
-  object_id: "output_heating_front"
+  default_entity_id: "output_heating_front"
   unique_id: "sps_ffw1.output_heating_front"
   command_topic: "sps_ffw1/output_heating_front/cmd"
   state_topic: "sps_ffw1/output_heating_front/state"
@@ -31,7 +31,7 @@
   payload_not_available: "offline"
 
 - name: "Heizung Hinten"
-  object_id: "output_heating_back"
+  default_entity_id: "output_heating_back"
   unique_id: "sps_ffw1.output_heating_back"
   command_topic: "sps_ffw1/output_heating_back/cmd"
   state_topic: "sps_ffw1/output_heating_back/state"
@@ -47,7 +47,7 @@
   payload_not_available: "offline"
 
 - name: "Audio"
-  object_id: "output_audio"
+  default_entity_id: "output_audio"
   unique_id: "sps_ffw1.output_audio"
   command_topic: "sps_ffw1/output_audio/cmd"
   state_topic: "sps_ffw1/output_audio/state"
