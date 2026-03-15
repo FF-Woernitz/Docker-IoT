@@ -33,6 +33,7 @@ my:
 sun:
 timer:
 media_source:
+mobile_app:
 
 sensor:
   - platform: time_date
