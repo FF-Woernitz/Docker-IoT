@@ -3,9 +3,9 @@ homeassistant:
     - type: homeassistant
     - type: trusted_networks
       trusted_networks:
-        - 10.2.1.30/32
+        - 10.2.1.34/32
       trusted_users:
-        10.2.1.30/32: ded5b5cae8b24592aa36bad472ff5b92
+        10.2.1.34/32: ded5b5cae8b24592aa36bad472ff5b92
   name: FFW
   # Location required to calculate the time the sun rises and sets
   latitude: 49.252909
