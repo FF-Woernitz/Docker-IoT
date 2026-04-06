@@ -26,6 +26,34 @@ http:
   trusted_proxies:
     - 172.18.0.0/24
 
+recorder:
+  purge_keep_days: 31
+  exclude:
+    domains:
+      - automation
+      - update
+    entity_globs:
+      - sensor.sun*
+      - weather.*
+      - sensor.*_voltage
+      - sensor.*_power
+      - sensor.relay_*_power_*
+      - sensor.*_temperature
+      - sensor.lenovo_tab_m10_3rd_*
+      - sensor.date_*
+      - sensor.*_current
+      - sensor.*_wifi_signal
+      - sensor.*_wifi_signal_percentage
+    entities:
+      - sensor.date
+      - sensor.last_boot
+      - sun.sun
+      - image.lenovo_tab_m10_3rd_gen_bildschirmfoto
+      - camera.lenovo_tab_m10_3rd_gen
+      - camera.hmi3
+      - sensor.time
+      - sensor.time_date
+
 homeassistant_alerts:
 history:
 logbook:
@@ -59,6 +87,8 @@ climate: !include climates.yaml
 
 logger:
   default: info
+  logs:
+    pyfritzhome.fritzhome: warning
   filters:
     homeassistant.components.websocket_api.http.connection:
       - "Error handling message: Unknown error" # Bug in browser_mod
@@ -69,11 +99,11 @@ openid:
   client_id: "hc3h5kBPmsxkA24CPV27xjzm7kHEO7jLbU7xG1EX"
   client_secret: !secret openid_secret
   configure_url: "https://auth.ffw-it.de/application/o/home-assistant-iot/.well-known/openid-configuration"
-  username_field: "preferred_username"
-  scope: "openid profile email"
+  username_field: "hass_user"
+  scope: "openid profile email hass"
   block_login: true
   trusted_ips: # List of CIDR blocks that are not affected by block_login
     - "172.18.0.0/24"
     - "10.2.1.0/24"
   openid_text: "Login with auth.ffw-it.de"
-  create_user: false
+  create_user: true
