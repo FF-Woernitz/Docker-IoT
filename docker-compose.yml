@@ -36,7 +36,7 @@ services:
 
   authentik_proxy:
     container_name: authentik_proxy
-    image: ghcr.io/goauthentik/proxy:2025.12.4
+    image: ghcr.io/goauthentik/proxy:2026.2.3
     restart: unless-stopped
     environment:
       - AUTHENTIK_HOST=https://auth.ffw-it.de
