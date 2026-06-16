@@ -83,8 +83,7 @@ services:
 
   hass:
     container_name: hass
-    build:
-      context: build-hass
+    image: homeassistant/home-assistant:stable
     volumes:
       - ./hass:/config
     environment:
