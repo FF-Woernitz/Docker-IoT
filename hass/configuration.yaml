@@ -21,11 +21,6 @@ homeassistant:
     "cover.gate":
       assumed_state: true
 
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 172.18.0.0/24
-
 recorder:
   purge_keep_days: 31
   exclude:
